@@ -3,27 +3,24 @@
 This is my collection of scripts for Autodesk Maya – These scripts were created with the aim of automating, enhancing or simply filling the missing details of what I find lacking in Maya. The collection of scripts will provide easy access to a variety of tools. For help on how to use these scripts, A **Description** could be found **Within Each Script**, reporting the objective. All of these items are supplied as is. You alone are solely responsible for any issues. Use at your own risk. Hopefully these scripts are helpful to you as they are to me.
 
 <p align="center">
-	<a href="https://github.com/AnDCGI/mayaSnippets/graphs/contributors">
-		<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/andcgi/mayaSnippets">
+	<a href="https://github.com/AnDCGI/mayaScripts/graphs/contributors">
+		<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/andcgi/mayaScripts">
 	</a>
 	<img alt= "Visitor Count" src = https://shields-io-visitor-counter.herokuapp.com/badge?page=https://github.com/AnDCGI/mayaScripts>
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/andcgi/mayaSnippets">
-	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/andcgi/mayaSnippets">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/andcgi/mayaScripts">
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/andcgi/mayaScripts">
 	<a href="https://github.com/AnDCGI/mayaSnippets/network/members">
-		<img alt="GitHub forks" src="https://img.shields.io/github/forks/andcgi/mayaSnippets">
+		<img alt="GitHub forks" src="https://img.shields.io/github/forks/andcgi/mayaScripts">
 	</a>
 	<a href="https://github.com/AnDCGI/mayaSnippets/stargazers">
-		<img alt="GitHub stars" src="https://img.shields.io/github/stars/andcgi/mayaSnippets">
+		<img alt="GitHub stars" src="https://img.shields.io/github/stars/andcgi/mayaScripts">
 	</a>
 	<a href="https://github.com/AnDCGI/mayaSnippets/issues">
-		<img alt="GitHub issues" src="https://img.shields.io/github/issues/andcgi/mayaSnippets">
+		<img alt="GitHub issues" src="https://img.shields.io/github/issues/andcgi/mayaScripts">
 	</a>
 	<a href="https://github.com/AnDCGI/mayaSnippets/blob/main/LICENSE.md">
 		<img alt="GitHub license" src="https://img.shields.io/badge/license-CC--BY--SA--4.0-orange">
 	</a>
-	<a href="https://paypal.me/DJDhrub">
-		<img alt="PayPal donate"src="https://img.shields.io/badge/$-donate-blue.svg">
-  </a>
 		<a href="https://www.linkedin.com/in/djdhrub/">
 			<img alt="LinkedIn URL" src="https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555">
 		</a>
