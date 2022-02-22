@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 
