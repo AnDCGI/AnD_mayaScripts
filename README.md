@@ -54,7 +54,7 @@ Simply install it again manually. Make sure to overwrite (replace) the files whe
 If you'd like to contribute, please fork the repository and make changes as you'd like.
 **Pull requests are warmly welcome.**
 
-[![](https://contrib.rocks/image?repo=AnDCGI/mayaSnippets)](https://github.com/AnDCGI/mayaSnippets/graphs/contributors)
+[![](https://contrib.rocks/image?repo=AnDCGI/mayaScripts)](https://github.com/AnDCGI/mayaScripts/graphs/contributors)
 
 ### Licensing
 
