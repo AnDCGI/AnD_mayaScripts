@@ -417,7 +417,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
+        -command "rivet()" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -451,8 +451,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
-        -sourceType "mel" 
+        -command "import mayaBroadcastFPS" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -485,8 +485,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
-        -sourceType "mel" 
+        -command "import dynamicsQuickSelectionSet" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -519,8 +519,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
-        -sourceType "mel" 
+        -command "import cleanUnknwonPlugins" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -553,8 +553,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
-        -sourceType "mel" 
+        -command "import batchRenderScript" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -587,8 +587,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "print(\"User defined macro\");" 
-        -sourceType "mel" 
+        -command "import mayaSceneScaleChange" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -647,7 +647,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as cmds\ndef showHelp():\n    cmds.showHelp(\"https://github.com/AnDCGI\", absolute=True)\nshowHelp()" 
+        -command "import gitHubConnect" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -681,7 +681,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as cmds\ndef showHelp():\n    cmds.showHelp(\"https://ko-fi.com/andcgi\", absolute=True)\nshowHelp()" 
+        -command "import kofiConnect" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
