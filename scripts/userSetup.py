@@ -11,7 +11,7 @@ def load():
 
     # Shelf to load from
     shelfLocation = (
-        homeDir + "mayaScripts/prefs/shelf/shelf_AnDCGI.mel"
+        homeDir + "mayaScripts/prefs/shelf/shelf_AnD_CGI.mel"
     )
     if os.path.isdir(shelfLocation) and not cmds.about(batch=True):
         for s in os.listdir(shelfLocation):
