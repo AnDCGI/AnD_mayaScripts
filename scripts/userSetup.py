@@ -7,7 +7,7 @@ import maya.mel as mel
 
 def load():
     homeDir = os.path.expanduser('~')
-    homeDir += "/Documents/GitHub/"
+    homeDir += "/Documents/"
 
     # Shelf to load from
     shelfLocation = (
