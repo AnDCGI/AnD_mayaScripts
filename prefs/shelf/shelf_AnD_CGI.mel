@@ -417,8 +417,8 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "rivet()" 
-        -sourceType "mel" 
+        -command "import importlib\nimport rivetConstraint\nimportlib.reload(rivetConstraint)" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -451,7 +451,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mayaBroadcastFPS" 
+        -command "import importlib\nimport mayaBroadcastFPS\nimportlib.reload(mayaBroadcastFPS)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -485,7 +485,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import dynamicsQuickSelectionSet" 
+        -command "import importlib\nimport dynamicsQuickSelectionSet\nimportlib.reload(dynamicsQuickSelectionSet)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -519,7 +519,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import cleanUnknwonPlugins" 
+        -command "import importlib\nimport cleanUnknwonPlugins\nimportlib.reload(cleanUnknwonPlugins)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -553,7 +553,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import batchRenderScript" 
+        -command "import importlib\nimport batchRenderScript\nimportlib.reload(batchRenderScript)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -587,7 +587,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mayaSceneScaleChange" 
+        -command "import importlib\nimport mayaSceneScaleChange\nimportlib.reload(mayaSceneScaleChange)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -621,7 +621,7 @@ global proc shelf_AnD_CGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 39
+        -flexibleWidthValue 32
         -enable 1
         -width 42
         -height 34
@@ -647,7 +647,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import gitHubConnect" 
+        -command "import importlib\nimport gitHubConnect\nimportlib.reload(gitHubConnect)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -655,7 +655,7 @@ global proc shelf_AnD_CGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 205
+        -flexibleWidthValue 32
         -enable 1
         -width 208
         -height 34
@@ -681,7 +681,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import kofiConnect" 
+        -command "import importlib\nimport kofiConnect\nimportlib.reload(kofiConnect)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
