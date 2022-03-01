@@ -39,7 +39,7 @@ This is my collection of scripts for Autodesk Maya – These scripts were create
 * Click on the small button with a semi-column on the lower-right edge of the screen
 * On the new window that has been opened and click on File > Load script <sup>_1_</sup>
 * Click on the Execute All button <sup>The Icon That Looks Like A Fast-Forward Button</sup>
-* A **Shelf Tool** will be released soon
+* The **Shelf Tool** & Installation [Here](https://github.com/AnDCGI/mayaScripts/archive/refs/tags/v0.1.0.zip)
 
 <sup>_1_</sup>_Select all, Middle click & drag to a custom shelve_
 
