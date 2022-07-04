@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
+
 '''A Render-Time Catmull-Clark Subdivision Script for Maya
 Tested with Maya Software, Maya Hardware, Arnold, V-Ray.
 It should work with practically any render engines inside Maya that supports the
