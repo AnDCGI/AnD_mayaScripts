@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
+
 ''' Maya One Click Scene Scale Change
 This Script Is Designed To Change Scene Scale Like For FX, Lighting Etc.
 Designed To Work As A Shelf Button Inside Maya And Especially Made To Work With
@@ -30,31 +31,17 @@ locator = cmds.spaceLocator()
 cmds.parent(selection, locator)
 cmds.select(locator)
 cmds.rename(locator, 'sceneScale')
+cmds.addAttr(shortName='gs',
+             longName='globalScale',
+             defaultValue=0.1,
+             minValue=0.01,
+             maxValue=100,
+             keyable=True)
 
-# Setting Scene Scale, Here Default Is 0.1
-cmds.setAttr("sceneScale.scaleX", 0.1)
-cmds.setAttr("sceneScale.scaleY", 0.1)
-cmds.setAttr("sceneScale.scaleZ", 0.1)
-
-# Hiding Traslate
-cmds.setAttr("sceneScale.translateX", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.translateY", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.translateZ", keyable=False, cb=False, lock=True)
-
-# Hiding Rotate
-cmds.setAttr("sceneScale.rotateX", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.rotateY", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.rotateZ", keyable=False, cb=False, lock=True)
-
-# Hiding Local Position
-cmds.setAttr("sceneScale.localPositionX", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.localPositionY", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.localPositionZ", keyable=False, cb=False, lock=True)
-
-# Hiding Local Scale
-cmds.setAttr("sceneScale.localScaleX", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.localScaleY", keyable=False, cb=False, lock=True)
-cmds.setAttr("sceneScale.localScaleZ", keyable=False, cb=False, lock=True)
+# Connecting To Global Scale
+cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleX')
+cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleY')
+cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleZ')
 
 # Some Beautification Of The Locator So It Stands Out
 cmds.setAttr("sceneScale.useOutlinerColor", 1)
@@ -62,10 +49,34 @@ cmds.setAttr("sceneScale" + ".outlinerColor", 0, 1, 0)
 cmds.setAttr("sceneScale.overrideEnabled", 1)
 cmds.setAttr("sceneScale" + ".overrideColor", 13)
 
+# Lock & Hide Transform Attributes
+selected = cmds.ls(selection=True)
+for eachTrn in selected:
+    for tranAttrs in cmds.listAttr(k=True):
+        if tranAttrs == 'visibility' or tranAttrs == 'globalScale':
+            pass
+        else:
+            cmds.setAttr(eachTrn + '.' + tranAttrs,
+                         keyable=False,
+                         cb=False,
+                         lock=True)
+
+# Lock & Hide Shape Attributes
+for eachShp in selected:
+    for shp in cmds.listRelatives(selected, s=True):
+        for shpAtrs in cmds.listAttr(shp, st='local*'):
+            cmds.setAttr(shp + '.' + shpAtrs,
+                         keyable=False,
+                         cb=False,
+                         lock=True)
+
 # Refreshing Outliner & Attribute Editor So That It Can Reflects The Change
 mel.eval('AEdagNodeCommonRefreshOutliners()')
 mel.eval('AttributeEditor;updateAE("sceneScale")')
+cmds.select(clear=True)  # Clear Selection
 
 # Some Message
 cmds.inViewMessage(amg='New Scene Scale <hl>0.1</hl>',
-                   pos='midCenter', font="Cascadia Mono SemiBold", fade=True)
+                   pos='midCenter',
+                   font="Cascadia Mono SemiBold",
+                   fade=True)
