@@ -1,4 +1,4 @@
-# Script Originaly Taken From Toadstorm Nerdblog, EVerything is Untouched Fixed
+# Script Originaly Taken From Toadstorm Nerdblog, Everything is Untouched Fixed
 # Few Discripencies
 
 # This Script Takes Advantage of the Pickle Module to Store Variables to a Temporary
@@ -19,10 +19,11 @@ hfCP.pasteChan()
 
 # Edit Lines 44 & 65 For Custom Path, Make Sure Write Permission Present
 
+import os
 import pickle
 import platform
 import maya.cmds as cmds
-import maya.mel as mel
+
 
 def copyChan():     # The Copy Operation
     try:
@@ -46,7 +47,7 @@ def copyChan():     # The Copy Operation
     # These to Disk So It Can Paste Between Instances of Maya.
 
     if platform.system() == 'Windows' or platform.system() == 'Microsoft':
-        cppath = 'C:/TempX/hfCopyPaste.txt'
+        cppath = os.getcwd() + 'hfCopyPaste.txt'
     else:
         cppath = '/Users/Shared/hfCopyPaste.txt'
     clearfile = open(cppath, 'w')
@@ -103,3 +104,5 @@ def pasteChan():     # The Paste Operation
             except:
                 pass
     print('Channels Pasted to %d Objects' % len(objs))
+
+
