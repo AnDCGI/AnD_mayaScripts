@@ -105,7 +105,7 @@ def RunButtonPush(*args):
 
 # Creates Actual Window
 window = cmds.window(winID,
-                     title='Reference Error Checker | v' + str(version),
+                     title=f'Reference Error Checker | v{str(version)}',
                      width=375,
                      height=180,
                      tlb=True,
