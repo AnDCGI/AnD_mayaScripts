@@ -6,8 +6,10 @@
 import os
 import glob
 import maya.cmds as cmds
-# import maya.mel as mel
+import logging
 
+
+logging.basicConfig(level=logging.DEBUG, filename="error.log")
 version = 0.9
 winID = 'RefError'  # Declaring Window ID
 
@@ -105,7 +107,7 @@ def RunButtonPush(*args):
 
 # Creates Actual Window
 window = cmds.window(winID,
-                     title=f'Reference Error Checker | v{str(version)}',
+                     title='Reference Error Checker | v' + str(version),
                      width=375,
                      height=180,
                      tlb=True,
