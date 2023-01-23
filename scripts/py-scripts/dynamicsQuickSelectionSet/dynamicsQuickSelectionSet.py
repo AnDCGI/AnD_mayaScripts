@@ -249,7 +249,7 @@ def CreateButtonPush(*args):
         else:
             cmds.confirmDialog(title='Warning',
                                icn='warning',
-◙                               message='Rigid Body Not Found!',
+                               message='Rigid Body Not Found!',
                                button='Yes I Acknowledge')
 
 # For Rigid Constraints
