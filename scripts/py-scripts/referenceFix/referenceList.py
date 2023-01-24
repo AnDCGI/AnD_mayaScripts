@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 # © 2022 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
@@ -9,7 +9,7 @@ import maya.cmds as cmds
 import logging
 
 logging.basicConfig(level=logging.DEBUG, filename="error.log")
-version = 0.9
+version = '0.9.1'
 winID = 'RefError'  # Declaring Window ID
 
 if cmds.window(winID, exists=True):  # Check To See If Window Exists
@@ -43,18 +43,10 @@ def RunButtonPush(*args):
         # Create a List From Given Directory
         filePaths = []
         filesDir = os.path.join(filesDir, '')
-        # filesPath = os.listdir(filesDir)
-        # # for fileNames in glob.iglob(filesDir + '**/*.ma', recursive=True):            Pyhton 3.5 Onwards
-        # for fileNames in filesPath:
-        #     if fileNames.endswith('.ma'):
-        #         path = filesDir + fileNames
-        #         filePaths.append(path)
-
-        # Create a List From Given Directory
-        for dirpath, dirnames, filenames in os.walk(filesDir):
+        for dirpath, dirnames, filenames in os.walk(filesDir):  # dirname is List of Subdirectories if Any
             for filename in filenames:
                 if filename.endswith('.ma'):
-                    filesDir.append(os.path.join(dirpath, filename))
+                    filePaths.append(os.path.join(dirpath, filename))
 
     # For Text Generation
         if currentValue == 1:
@@ -112,7 +104,7 @@ def RunButtonPush(*args):
 
 # Creates Actual Window
 window = cmds.window(winID,
-                     title='Reference Error Checker | v' + str(version),
+                     title='Reference Error Checker | v' + version,
                      width=375,
                      height=180,
                      tlb=True,
