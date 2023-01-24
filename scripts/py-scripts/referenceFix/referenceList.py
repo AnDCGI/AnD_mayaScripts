@@ -5,11 +5,16 @@
 
 import os
 import glob
+import re
 import maya.cmds as cmds
 import logging
+import time
+
+# get the start time
+startTime = time.time()
 
 logging.basicConfig(level=logging.DEBUG, filename="error.log")
-version = '0.9.1'
+version = '1.0.1'
 winID = 'RefError'  # Declaring Window ID
 
 if cmds.window(winID, exists=True):  # Check To See If Window Exists
@@ -34,6 +39,29 @@ def ReferenceFilesDir(*args):
     cmds.textFieldGrp(rText, text=rDir, e=1)
 
 
+def FindMayaFiles(filesDir):
+    filePaths = []
+    filesDir = os.path.join(filesDir, '')
+    for dirpath, dirnames, filenames in os.walk(filesDir):
+        for filename in filenames:
+            if filename.endswith('.ma'):
+                filePaths.append(os.path.join(dirpath, filename))
+    return filePaths
+
+
+def SearchReturnLines(listPath, searchString):
+    resultLines = []
+    with open(listPath, 'r') as file:
+        lines = file.readlines()
+        for i, line in enumerate(lines):
+            if searchString in line:
+                if (i + 1) < len(lines) and not lines[i + 1].startswith(searchString):
+                    resultLines.append(line.strip() + ' ' + lines[i + 1])
+                else:
+                    resultLines.append(line.strip())
+    return resultLines
+
+
 def RunButtonPush(*args):
     currentValue = cmds.radioButtonGrp('Radio_Type', query=True, select=True)
     filesDir = cmds.textFieldGrp('Path_Text', query=True, fileName=True)
@@ -41,19 +69,14 @@ def RunButtonPush(*args):
 
     if filesDir != '' and refrDir != '':
         # Create a List From Given Directory
-        filePaths = []
-        filesDir = os.path.join(filesDir, '')
-        for dirpath, dirnames, filenames in os.walk(filesDir):  # dirname is List of Subdirectories if Any
-            for filename in filenames:
-                if filename.endswith('.ma'):
-                    filePaths.append(os.path.join(dirpath, filename))
+        fp = FindMayaFiles(filesDir)
 
-    # For Text Generation
+        # For Text Generation
         if currentValue == 1:
             promptValue = cmds.file(q=True, prompt=True)  # Warning Or PopUp Message Option
             cmds.file(prompt=False)  # Warning Or PopUp Message Off
 
-            for fi in filePaths:
+            for fi in fp:
                 refNodes = []
 
                 refList = open(fi[:-3] + ' - FAIL.txt', 'w')
@@ -88,11 +111,57 @@ def RunButtonPush(*args):
                     print(error)
 
             cmds.file(prompt=promptValue)  # Warning Or PopUp Message Back On
+            cmds.confirmDialog(title='Contribute',
+                               message='Process Completed',
+                               messageAlign='center',
+                               button=['OK'],
+                               defaultButton='Yes',
+                               dismissString='No',
+                               parent=winID)
 
         elif currentValue == 2:
             print('Not Ready!')
+
         elif currentValue == 3:
-            print('Disabled')
+            matchedList = []
+
+            for fi in fp:
+
+                refList = open(fi[:-3] + ' - FAIL.txt', 'w')
+                searchOutput = SearchReturnLines(fi, 'file ')
+
+                for lines in searchOutput:
+                    match = re.search(r'"([^"]*)"(?=;)', lines)
+                    if match:
+                        lastQuotedText = match.group(1)
+                        matchedList.append(lastQuotedText)
+                    else:
+                        print("Possible Reference Pattern Error While Opening File as Text")
+
+                matchedList = list(set(matchedList))  # Removing Duplicate Entries
+                for ref in matchedList:
+                    if refrDir in ref:
+                        noRefList = open(fi[:-3] + ' - PASS.txt', 'w')
+                        noRefList.close()
+                    else:
+                        refList.write(ref + '\n')
+
+                refList.close()
+
+                try:
+                    if os.path.getsize(fi[:-3] + ' - FAIL.txt') > 0:
+                        pass
+                    else:
+                        os.remove(fi[:-3] + ' - FAIL.txt')
+                except OSError as error:
+                    print(error)
+            cmds.confirmDialog(title='Contribute',
+                               message='Process Completed',
+                               messageAlign='center',
+                               button=['OK'],
+                               defaultButton='Yes',
+                               dismissString='No',
+                               parent=winID)
 
     else:
         cmds.inViewMessage(assistMessage='<h1>Please Provide Valid Path</h1>',
@@ -129,7 +198,7 @@ cmds.setParent('..')
 cmds.rowLayout(numberOfColumns=4)
 cmds.text(label='', width=25)
 cmds.radioButtonGrp('Radio_Type',
-                    labelArray3=['Generate TXT', 'Find/Replace', 'Console Print'],
+                    labelArray3=['Maya (Slow)', 'Find/Replace', 'Pyhton (Fast)'],
                     numberOfRadioButtons=3,
                     enable=True,
                     select=1)
@@ -145,3 +214,6 @@ cmds.separator(h=5)
 cmds.columnLayout(bgc=(1, 0, 0), columnOffset=('both', 85))
 cmds.text(label='For Zoetrope Animation Studios By Dhruba', font='smallPlainLabelFont')
 cmds.showWindow()
+
+endTime = time.time()
+totalProcessTime = endTime - startTime
