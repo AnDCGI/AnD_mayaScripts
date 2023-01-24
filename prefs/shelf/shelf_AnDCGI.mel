@@ -1,4 +1,4 @@
-global proc shelf_AnD_CGI () {
+global proc shelf_AnDCGI () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -417,7 +417,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport rivetConstraint\nimportlib.reload(rivetConstraint)" 
+        -command "import imp\nimport rivetConstraint\nimp.reload(rivetConstraint)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -451,7 +451,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport mayaBroadcastFPS\nimportlib.reload(mayaBroadcastFPS)" 
+        -command "import imp\nimport mayaBroadcastFPS\nimp.reload(mayaBroadcastFPS)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -485,7 +485,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport dynamicsQuickSelectionSet\nimportlib.reload(dynamicsQuickSelectionSet)" 
+        -command "import imp\nimport dynamicsQuickSelectionSet\nimp.reload(dynamicsQuickSelectionSet)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -519,7 +519,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport cleanUnknwonPlugins\nimportlib.reload(cleanUnknwonPlugins)" 
+        -command "import imp\nimport cleanUnknwonPlugins\nimp.reload(cleanUnknwonPlugins)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -553,7 +553,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport batchRenderScript\nimportlib.reload(batchRenderScript)" 
+        -command "import imp\nimport batchRenderScript\nimp.reload(batchRenderScript)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -587,7 +587,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport mayaSceneScaleChange\nimportlib.reload(mayaSceneScaleChange)" 
+        -command "import imp\nimport mayaSceneScaleChange\nimp.reload(mayaSceneScaleChange)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -689,7 +689,7 @@ global proc shelf_AnD_CGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 39
+        -flexibleWidthValue 32
         -enable 1
         -width 42
         -height 34
@@ -715,7 +715,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport gitHubConnect\nimportlib.reload(gitHubConnect)" 
+        -command "import imp\nimport gitHubConnect\nimp.reload(gitHubConnect)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -723,7 +723,7 @@ global proc shelf_AnD_CGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 205
+        -flexibleWidthValue 32
         -enable 1
         -width 208
         -height 34
@@ -749,7 +749,7 @@ global proc shelf_AnD_CGI () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import importlib\nimport kofiConnect\nimportlib.reload(kofiConnect)" 
+        -command "import imp\nimport kofiConnect\nimp.reload(kofiConnect)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
