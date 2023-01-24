@@ -8,7 +8,6 @@ import glob
 import maya.cmds as cmds
 import logging
 
-
 logging.basicConfig(level=logging.DEBUG, filename="error.log")
 version = 0.9
 winID = 'RefError'  # Declaring Window ID
@@ -44,12 +43,18 @@ def RunButtonPush(*args):
         # Create a List From Given Directory
         filePaths = []
         filesDir = os.path.join(filesDir, '')
-        filesPath = os.listdir(filesDir)
-        # for fileNames in glob.iglob(filesDir + '**/*.ma', recursive=True):            Pyhton 3.5 Onwards
-        for fileNames in filesPath:
-            if fileNames.endswith('.ma'):
-                path = filesDir + fileNames
-                filePaths.append(path)
+        # filesPath = os.listdir(filesDir)
+        # # for fileNames in glob.iglob(filesDir + '**/*.ma', recursive=True):            Pyhton 3.5 Onwards
+        # for fileNames in filesPath:
+        #     if fileNames.endswith('.ma'):
+        #         path = filesDir + fileNames
+        #         filePaths.append(path)
+
+        # Create a List From Given Directory
+        for dirpath, dirnames, filenames in os.walk(filesDir):
+            for filename in filenames:
+                if filename.endswith('.ma'):
+                    filesDir.append(os.path.join(dirpath, filename))
 
     # For Text Generation
         if currentValue == 1:
