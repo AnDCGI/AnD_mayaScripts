@@ -13,10 +13,10 @@
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 
 version = 1.1
-winID_A = 'QSS Create'  # Declaring Window ID
+winID = 'QSSCreate'  # Declaring Window ID
 
-if cmds.window(winID_A, exists=True):  # Check To See If Window Exists
-    cmds.deleteUI(winID_A)
+if cmds.window(winID, exists=True):  # Check To See If Window Exists
+    cmds.deleteUI(winID)
 
 # Defines Create Button Action
 
@@ -27,6 +27,7 @@ def CreateButtonPush(*args):
     qssName = None
     notFoundMessage = "{} Not Found!".format(currentValue)
     creationMessage = "Created Quick Selection Set with all <hl>{}</hl>".format(currentValue)
+    repetationMessage = "Added to Existing Quick Selection Set with all <hl>{}</hl>".format(currentValue)
 
     # For Fluid Emitters
     if currentValue == 'Fluid Emitter':
@@ -97,6 +98,7 @@ def CreateButtonPush(*args):
         cmds.select(set)
         if cmds.objExists(qssName):
             cmds.sets(set, include=qssName)
+            cmds.inViewMessage(amg=repetationMessage, pos='midCenter', font="Cascadia Mono SemiBold", fade=True)
         else:
             cmds.sets(name=qssName, text='gCharacterSet')
             cmds.inViewMessage(amg=creationMessage, pos='midCenter', font="Cascadia Mono SemiBold", fade=True)
@@ -110,11 +112,11 @@ def DoneButtonPush(*args):
 
 
 # Creates Actual Window GUI
-window = cmds.window(winID_A, title='FX Quick Selection Set', resizeToFitChildren=True, sizeable=False, tlb=True)
+window = cmds.window(winID, title='FX Quick Selection Set', resizeToFitChildren=True, sizeable=False, tlb=True)
 
 # Creates Layout
 cmds.frameLayout(label='Dynamics Quick Selection Set Options', collapsable=False, mw=5, mh=5)
-cmds.text(label='© AnD CGI CC BY-SA 4.0', font='smallPlainLabelFont')
+cmds.text(label='AnD CGI CC BY-SA 4.0', font='smallPlainLabelFont')
 cmds.columnLayout()
 cmds.optionMenu('Object_Type', label='Object Type')
 cmds.menuItem(label=" ")

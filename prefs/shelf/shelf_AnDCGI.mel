@@ -216,8 +216,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/decision-tree.png" 
-        -image1 "icons/decision-tree.png" 
+        -image "decision-tree.png" 
+        -image1 "decision-tree.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -250,8 +250,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/link.png" 
-        -image1 "icons/link.png" 
+        -image "link-edit.png" 
+        -image1 "link-edit.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -284,8 +284,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/spreadsheet.png" 
-        -image1 "icons/spreadsheet.png" 
+        -image "spreadsheet-open.png" 
+        -image1 "spreadsheet-open.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -318,8 +318,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/bar-chart.png" 
-        -image1 "icons/bar-chart.png" 
+        -image "bar-chart.png" 
+        -image1 "bar-chart.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -365,8 +365,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/coding.png" 
-        -image1 "icons/coding.png" 
+        -image "coding-pane.png" 
+        -image1 "coding-pane.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -412,8 +412,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/riveter.png" 
-        -image1 "icons/riveter.png" 
+        -image "riveter-null.png" 
+        -image1 "riveter-null.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -446,8 +446,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/desktop-computer.png" 
-        -image1 "icons/desktop-computer.png" 
+        -image "desktop-computer.png" 
+        -image1 "desktop-computer.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -480,8 +480,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/product.png" 
-        -image1 "icons/product.png" 
+        -image "mutiple-choise.png" 
+        -image1 "mutiple-choise.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -514,8 +514,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/clean.png" 
-        -image1 "icons/clean.png" 
+        -image "clean-files.png" 
+        -image1 "clean-files.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -548,8 +548,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/batch.png" 
-        -image1 "icons/batch.png" 
+        -image "batch-render.png" 
+        -image1 "batch-render.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -582,12 +582,46 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0 0 0 
         -overlayLabelBackColor 0.329875 0.468169 0.725 0.8 
-        -image "icons/selection" 
-        -image1 "icons/selection" 
+        -image "selection-scale" 
+        -image1 "selection-scale" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -command "import imp\nimport mayaSceneScaleChange\nimp.reload(mayaSceneScaleChange)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Find Bad References" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "FBD" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "reference-find.png" 
+        -image1 "reference-find.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import imp\nimport referenceList\nimp.reload(referenceList)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -629,8 +663,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/files.png" 
-        -image1 "icons/files.png" 
+        -image "channel-copy.png" 
+        -image1 "channel-copy.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -663,8 +697,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icon/paste.png" 
-        -image1 "icon/paste.png" 
+        -image "channel-paste.png" 
+        -image1 "channel-paste.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -689,7 +723,7 @@ global proc shelf_AnDCGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 32
+        -flexibleWidthValue 39
         -enable 1
         -width 42
         -height 34
@@ -710,8 +744,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/Octocat.png" 
-        -image1 "icons/Octocat.png" 
+        -image "Octocat.png" 
+        -image1 "Octocat.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -723,7 +757,7 @@ global proc shelf_AnDCGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 32
+        -flexibleWidthValue 205
         -enable 1
         -width 208
         -height 34
@@ -744,8 +778,8 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "icons/kofi_button_stroke.png" 
-        -image1 "icons/kofi_button_stroke.png" 
+        -image "kofi_button_stroke.png" 
+        -image1 "kofi_button_stroke.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
