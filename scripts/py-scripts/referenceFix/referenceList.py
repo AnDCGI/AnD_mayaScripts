@@ -4,14 +4,9 @@
 # Attribution-ShareAlike 4.0 International License.
 
 import os
-import glob
 import re
 import maya.cmds as cmds
 import logging
-import time
-
-# get the start time
-startTime = time.time()
 
 logging.basicConfig(level=logging.DEBUG, filename="error.log")
 version = '1.0.1'
@@ -185,13 +180,11 @@ cmds.text(label='AnD CGI CC BY-SA 4.0', font='smallPlainLabelFont')
 cmds.setParent('..')
 cmds.rowColumnLayout(numberOfColumns=3, columnAttach=(1, 'both', 0), columnWidth=[(1, 100), (2, 250), (3, 25)])
 cmds.text(label='Files Directory', font='boldLabelFont')
-#cmds.textFieldGrp('Path_Text', width=100, placeholderText = 'Paste Maya Files Directory Here', text = fDir)
 fText = cmds.textFieldGrp('Path_Text', width=100, placeholderText='Paste Maya Files Directory Here', text='')
 cmds.iconTextButton(style='iconOnly', image1='loadPreset.xpm', label='loadPreset', command=LoadMayaFilesDir)
 cmds.setParent('..')
 cmds.rowColumnLayout(numberOfColumns=3, columnAttach=(1, 'both', 0), columnWidth=[(1, 100), (2, 250), (3, 25)])
 cmds.text(label='Reference Root', font='boldLabelFont')
-#cmds.textFieldGrp('Ref_Text', width=100, placeholderText = 'Paste Reference Root Path Here')
 rText = cmds.textFieldGrp('Ref_Text', width=100, placeholderText='Paste Reference Root Path Here', text='')
 cmds.iconTextButton(style='iconOnly', image1='fileOpen.xpm', label='fileOpen', command=ReferenceFilesDir)
 cmds.setParent('..')
@@ -214,6 +207,3 @@ cmds.separator(h=5)
 cmds.columnLayout(bgc=(1, 0, 0), columnOffset=('both', 85))
 cmds.text(label='For Zoetrope Animation Studios By Dhruba', font='smallPlainLabelFont')
 cmds.showWindow()
-
-endTime = time.time()
-totalProcessTime = endTime - startTime
