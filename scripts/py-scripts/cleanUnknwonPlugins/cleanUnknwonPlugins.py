@@ -7,6 +7,7 @@ This Script Will Delete Any Unknown Plugins From Maya Scene
 The List of Deleted Plugins Can Be Seen On Maya Script Editor
 '''
 import maya.cmds as cmds
+
 cmds.delete(cmds.ls(type="unknown"))
 plg_ls = cmds.unknownPlugin(q=True, l=True)
 if plg_ls:
@@ -29,4 +30,5 @@ The _unknown_ref_node_ And Deleting It. That Is, This Specific Node Type
 Cannot Be Deleted Using The Reference Editor.
 '''
 # Use The Bottom Line Only If You Have "_UNKNOWN_REF_NODE_"
-cmds.delete("_UNKNOWN_REF_NODE_")
+if '_UNKNOWN_REF_NODE_' in cmds.ls(type='reference'):
+    cmds.delete("_UNKNOWN_REF_NODE_")
