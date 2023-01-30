@@ -14,7 +14,7 @@ Disclaimer! Be carefull while using it with Rigged Files.
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 import maya.mel as mel  # Importing The Mel Python Wrapper Module
 
-# Selecting Every ALembic Inside Scene Then Getting Transform Node
+# Selecting Every Alembic Inside Scene Then Getting Transform Node
 cmds.select(all=True, hierarchy=True)
 selection = cmds.ls(type='AlembicNode')
 transformNode = cmds.listRelatives(selection, p=True)
