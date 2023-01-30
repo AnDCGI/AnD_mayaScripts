@@ -1,18 +1,18 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
-'''Dynamics Quick Selection Set
- This Tool Collects Different Types of Objects* by Searching the Whole Scene
- User Have to Choose the Type of Object, Click Create & the Tool Will Create An
- Quick Selection Set
- Every Quick Selection Set Will Have a QSS Suffix
+"""
+Dynamics Quick Selection Set. This tool collects different types of objects* by searching the whole scene user have to 
+choose the type of object, click create & the tool will create an quick selection set every quick selection set will 
+have a QSS suffix.
 
-*Drop Down Options are Related to FX Only'''
+*QSS Options are related to FX only
+"""
 
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 
-version = 1.1
+version = 1.0
 winID = 'QSSCreate'  # Declaring Window ID
 
 if cmds.window(winID, exists=True):  # Check To See If Window Exists

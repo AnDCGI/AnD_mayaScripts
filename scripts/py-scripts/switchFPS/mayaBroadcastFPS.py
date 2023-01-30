@@ -2,17 +2,14 @@
 # -*- coding: utf-8 -*-
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
+"""
+Maya Broadcast FPS. This script is designed to work as a shelf button inside maya which will open a pop-up window with 
+all the presets. The tool changes the FPS based on selected preset, although kind of a similar option is available 
+inside Maya the problem is timeline and time slider goes into float values, this fixes that also sets the Start & End 
+as user defined values respectively.
 
-'''Maya Broadcast FPS
-This Script Designed To Work As A Shelf Button Inside Maya Which Will Open A
-New Pop Up UI With All The Presets. The Tool Changes The FPS Based On Selected
-Preset Althogh Kind Of A Similar Option Is Avilavle Inside Maya But The
-Timeline And Timeslider Goes Into Float Values, This Fixes That Also Sets The
-Start & End As 101 - 500 Respectively Which Can Be Changed By Changing The
-Values Inside The Code
-
-DISCLAIMER This Doesnt Changes Any Keyframe Nor Converts FPS, It Just Sets FPS,
-Meant To Be Used On A Empty Scene'''
+Disclaimer! This doesn't change any keyframe nor convert FPS, it just sets FPS, meant to be used on an empty scene
+"""
 
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 import maya.mel as mel  # Importing The Mel Python Wrapper Module
@@ -28,104 +25,57 @@ cMaxTime = cAnimationEndTime  # Sets The End Of The Playback Time Range
 if cmds.window(winID, exists=True):  # Check To See If Window Exists
     cmds.deleteUI(winID)
 
-# Defines Set Button Action
-
 
 def SetButtonPush(*args):
-
+    """
+    This function sets the frames per second (FPS) based on the selected option in the option menu.
+    It also starts the playback and displays a message in the viewport to indicate the FPS change.
+    """
+    # Get Selected FPS Value From Option Menu
     currentValue = cmds.optionMenu('Select_FPS', query=True, value=True)
+    # Get Start & End Frame Values From the Int Fields
     cMinTime = cmds.intField('strtFrame', query=True, value=True)
     cMaxTime = cmds.intField('endFrame', query=True, value=True)
 
+    # Set FPS & Start, End Frame Based on Selected Value
     if currentValue == 'Game 15 FPS':
-        mel.eval('currentUnit -time game')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>15</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'game', 15)
     elif currentValue == 'Film 24 FPS':
-        mel.eval('currentUnit -time film')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>24</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'film', 24)
     elif currentValue == 'PAL/SECAM 25 FPS':
-        mel.eval('currentUnit -time pal')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>25</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'pal', 25)
     elif currentValue == 'NTSC 30 FPS':
-        mel.eval('currentUnit -time ntsc')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>30</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'ntsc', 30)
     elif currentValue == 'Show 48 FPS':
-        mel.eval('currentUnit -time show')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>48</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'show', 48)
     elif currentValue == 'PAL F 50 FPS':
-        mel.eval('currentUnit -time palf')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>50</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'palf', 50)
     elif currentValue == 'NTSC F 60 FPS':
-        mel.eval('currentUnit -time ntscf')
-        mel.eval('playbackOptions -ps 0')
-        mel.eval('playbackOptions -e -ast ' + str(cMinTime) + '-min ' +
-                 str(cMinTime) + '-max ' + str(cMaxTime) + '-aet ' +
-                 str(cMaxTime))
-        mel.eval('playButtonStart')
-        cmds.inViewMessage(amg='Changed FPS to <hl>60</hl>',
-                           pos='midCenter',
-                           font="Cascadia Mono SemiBold",
-                           fade=True)
+        setFPS(cMinTime, cMaxTime, 'ntscf', 60)
+
+
+def setFPS(cMinTime, cMaxTime, unit, fps):
+    """
+    This function sets the FPS, starts the playback and displays a message in the viewport
+
+    :param cMinTime: Gets the Start Frame Number
+    :param cMaxTime: Gets the End Frame Number
+    :param unit: Gets the Unit i.e. game, film etc
+    :param fps: Gets the fps for that unit
+    """
+    mel.eval(f'currentUnit -time {unit}')
+    mel.eval('playbackOptions -ps 0')
+    mel.eval(f'playbackOptions -e -ast {cMinTime}-min {cMinTime}-max {cMaxTime}-aet {cMaxTime}')
+    mel.eval('playButtonStart')
+    cmds.inViewMessage(amg=f'Changed FPS to <hl>{fps}</hl>', pos='midCenter', font="Cascadia Mono SemiBold", fade=True)
 
 
 # Creates Actual Window
-window = cmds.window(winID,
-                     title='Maya FPS Switch',
-                     resizeToFitChildren=True,
-                     sizeable=False,
-                     tlb=True)
+window = cmds.window(winID, title='Maya FPS Switch', resizeToFitChildren=True, sizeable=False, tlb=True)
 
 # Creates Layout
 cmds.frameLayout(label='Broadcast FPS Options', collapsable=False, mw=5, mh=5)
-cmds.text(label='© AnD CGI CC BY-SA 4.0', font='smallPlainLabelFont')
+cmds.text(label='AnD CGI CC BY-SA 4.0', font='smallPlainLabelFont')
 cmds.columnLayout()
 cmds.optionMenu('Select_FPS', label='Select FPS')
 cmds.menuItem(label=" ")

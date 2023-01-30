@@ -32,7 +32,7 @@ global proc shelf_AnDCGI () {
         -image "menuIconFile.png" 
         -image1 "menuIconFile.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "OpenScene" 
         -sourceType "mel" 
@@ -67,7 +67,7 @@ global proc shelf_AnDCGI () {
         -image "menuIconFile.png" 
         -image1 "menuIconFile.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "SaveScene" 
         -sourceType "mel" 
@@ -102,7 +102,7 @@ global proc shelf_AnDCGI () {
         -image "menuIconFile.png" 
         -image1 "menuIconFile.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "SaveSceneAs" 
         -sourceType "mel" 
@@ -137,7 +137,7 @@ global proc shelf_AnDCGI () {
         -image "menuIconFile.png" 
         -image1 "menuIconFile.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "CreateReference" 
         -sourceType "mel" 
@@ -172,7 +172,7 @@ global proc shelf_AnDCGI () {
         -image "menuIconFile.png" 
         -image1 "menuIconFile.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "file -new -force;" 
         -sourceType "mel" 
@@ -219,7 +219,7 @@ global proc shelf_AnDCGI () {
         -image "decision-tree.png" 
         -image1 "decision-tree.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "OutlinerWindow" 
         -sourceType "mel" 
@@ -253,7 +253,7 @@ global proc shelf_AnDCGI () {
         -image "link-edit.png" 
         -image1 "link-edit.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "DynamicRelationshipEditor" 
         -sourceType "mel" 
@@ -287,7 +287,7 @@ global proc shelf_AnDCGI () {
         -image "spreadsheet-open.png" 
         -image1 "spreadsheet-open.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "SpreadSheetEditor" 
         -sourceType "mel" 
@@ -321,7 +321,7 @@ global proc shelf_AnDCGI () {
         -image "bar-chart.png" 
         -image1 "bar-chart.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "GraphEditor" 
         -sourceType "mel" 
@@ -368,7 +368,7 @@ global proc shelf_AnDCGI () {
         -image "coding-pane.png" 
         -image1 "coding-pane.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "ScriptEditor" 
         -sourceType "mel" 
@@ -415,7 +415,7 @@ global proc shelf_AnDCGI () {
         -image "riveter-null.png" 
         -image1 "riveter-null.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport rivetConstraint\nimp.reload(rivetConstraint)" 
         -sourceType "python" 
@@ -449,7 +449,7 @@ global proc shelf_AnDCGI () {
         -image "desktop-computer.png" 
         -image1 "desktop-computer.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport mayaBroadcastFPS\nimp.reload(mayaBroadcastFPS)" 
         -sourceType "python" 
@@ -483,7 +483,7 @@ global proc shelf_AnDCGI () {
         -image "mutiple-choise.png" 
         -image1 "mutiple-choise.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport dynamicsQuickSelectionSet\nimp.reload(dynamicsQuickSelectionSet)" 
         -sourceType "python" 
@@ -517,7 +517,7 @@ global proc shelf_AnDCGI () {
         -image "clean-files.png" 
         -image1 "clean-files.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport cleanUnknwonPlugins\nimp.reload(cleanUnknwonPlugins)" 
         -sourceType "python" 
@@ -551,7 +551,7 @@ global proc shelf_AnDCGI () {
         -image "batch-render.png" 
         -image1 "batch-render.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport batchRenderScript\nimp.reload(batchRenderScript)" 
         -sourceType "python" 
@@ -585,7 +585,7 @@ global proc shelf_AnDCGI () {
         -image "selection-scale" 
         -image1 "selection-scale" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport mayaSceneScaleChange\nimp.reload(mayaSceneScaleChange)" 
         -sourceType "python" 
@@ -619,7 +619,7 @@ global proc shelf_AnDCGI () {
         -image "reference-find.png" 
         -image1 "reference-find.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport referenceList\nimp.reload(referenceList)" 
         -sourceType "python" 
@@ -666,7 +666,7 @@ global proc shelf_AnDCGI () {
         -image "channel-copy.png" 
         -image1 "channel-copy.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import hfCopyPaste as hfCP\nhfCP.copyChan()" 
         -sourceType "python" 
@@ -700,7 +700,7 @@ global proc shelf_AnDCGI () {
         -image "channel-paste.png" 
         -image1 "channel-paste.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import hfCopyPaste as hfCP\nhfCP.pasteChan()" 
         -sourceType "python" 
@@ -747,7 +747,7 @@ global proc shelf_AnDCGI () {
         -image "Octocat.png" 
         -image1 "Octocat.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport gitHubConnect\nimp.reload(gitHubConnect)" 
         -sourceType "python" 
@@ -781,7 +781,7 @@ global proc shelf_AnDCGI () {
         -image "kofi_button_stroke.png" 
         -image1 "kofi_button_stroke.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport kofiConnect\nimp.reload(kofiConnect)" 
         -sourceType "python" 
