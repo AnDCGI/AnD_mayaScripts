@@ -747,7 +747,7 @@ global proc shelf_AnDCGI () {
         -image "separator.png" 
         -image1 "separator.png" 
         -style "iconOnly" 
-        -marginWidth 1
+        -marginWidth 0
         -marginHeight 1
         -command "import imp\nimport fancySeparator\nimp.reload(fancySeparator)" 
         -sourceType "python" 
