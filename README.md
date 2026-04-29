@@ -24,6 +24,13 @@ sense in another environment.
 
 ## Install
 
+### 🔹 Auto-load Installation
+Download from the release page:  
+👉 [Download Release v1.0.1](https://github.com/AnDCGI/AnD_mayaScripts/releases/tag/v1.0.1)
+
+### 🔹 Manual Installation
+Follow the steps below.
+
 1. Keep this repository somewhere stable, for example:
 
    ```text
