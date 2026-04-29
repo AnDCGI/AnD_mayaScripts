@@ -757,9 +757,9 @@ global proc shelf_AnDCGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 39
+        -flexibleWidthValue 38
         -enable 1
-        -width 42
+        -width 41
         -height 34
         -manage 1
         -visible 1
@@ -791,9 +791,9 @@ global proc shelf_AnDCGI () {
     shelfButton
         -enableCommandRepeat 1
         -flexibleWidthType 3
-        -flexibleWidthValue 205
+        -flexibleWidthValue 32
         -enable 1
-        -width 208
+        -width 35
         -height 34
         -manage 1
         -visible 1
