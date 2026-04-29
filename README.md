@@ -1,90 +1,129 @@
-# **Maya Scripts**
+# Maya Scripts
 
-This is my collection of scripts for Autodesk Maya – These scripts were created with the aim of automating, enhancing or simply filling the missing details of what I find lacking in Maya. The collection of scripts will provide easy access to a variety of tools. For help on how to use these scripts, A **Description** could be found **Within Each Script**, reporting the objective. All of these items are supplied as is. You alone are solely responsible for any issues. Use at your own risk. Hopefully these scripts are helpful to you as they are to me.
+This repository is a collection of Autodesk Maya shelf tools created by AnD CGI
+to automate small production tasks, speed up common scene operations, and fill
+workflow gaps in Maya.
 
-<p align="center">
-	<a href="https://github.com/AnDCGI/mayaScripts/graphs/contributors">
-		<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/andcgi/mayaScripts">
-	</a>
-	<img alt= "Visitor Count" src = https://shields-io-visitor-counter.herokuapp.com/badge?page=https://github.com/AnDCGI/mayaScripts>
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/andcgi/mayaScripts">
-	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/andcgi/mayaScripts">
-	<a href="https://github.com/AnDCGI/mayaSnippets/network/members">
-		<img alt="GitHub forks" src="https://img.shields.io/github/forks/andcgi/mayaScripts">
-	</a>
-	<a href="https://github.com/AnDCGI/mayaSnippets/stargazers">
-		<img alt="GitHub stars" src="https://img.shields.io/github/stars/andcgi/mayaScripts">
-	</a>
-	<a href="https://github.com/AnDCGI/mayaSnippets/issues">
-		<img alt="GitHub issues" src="https://img.shields.io/github/issues/andcgi/mayaScripts">
-	</a>
-	<a href="https://github.com/AnDCGI/mayaSnippets/blob/main/LICENSE.md">
-		<img alt="GitHub license" src="https://img.shields.io/badge/license-CC--BY--SA--4.0-orange">
-	</a>
-		<a href="https://www.linkedin.com/in/djdhrub/">
-			<img alt="LinkedIn URL" src="https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555">
-		</a>
-</p>
+## Project Status
 
-## Organization
+This repository is in final-maintenance mode. The scripts have been refreshed
+for a final Maya 2027/Python 3 compatibility pass, but the project is no longer
+intended to receive ongoing feature work after the final archival release.
 
-* `mel-scripts`: contains scripts written in MEL
-* `py-scripts`: contains scripts written in Python
+Use these tools at your own risk. Some scripts were originally written for
+specific studio pipelines and may need local configuration before they make
+sense in another environment.
 
-## How to Load Scripts on Maya
+## Compatibility
 
-### Installing
+- Target: Autodesk Maya 2027 or newer Maya builds that run Python 3.
+- Older Maya/Python 2 releases are no longer a goal for this repo.
+- The tools use `maya.cmds` and MEL shelf commands, so they must run inside Maya.
+- A few tools depend on optional renderer features, such as Arnold `aiAOV`
+  nodes.
 
-* Open Maya <sup>Should Work With Any Version</sup>
-* Click on the small button with a semi-column on the lower-right edge of the screen
-* On the new window that has been opened and click on File > Load script <sup>_1_</sup>
-* Click on the Execute All button <sup>The Icon That Looks Like A Fast-Forward Button</sup>
-* The **Shelf Tool** & Installation [Here](https://github.com/AnDCGI/mayaScripts/archive/refs/tags/v0.1.0.zip)
+## Install
 
-<sup>_1_</sup>_Select all, Middle click & drag to a custom shelve_
+1. Keep this repository somewhere stable, for example:
 
-### Updating
+   ```text
+   C:/Users/<USER>/Documents/GitHub/AnD_mayaScripts
+   ```
 
-Simply install it again manually. Make sure to overwrite (replace) the files when moving them to the scripts folder
+2. In Maya, open the Script Editor, switch to the Python tab, and run:
 
-## Credit
+   ```python
+   import os
+   import sys
 
-### Contributing
+   repo = r"C:\Users\<USER>\Documents\GitHub\AnD_mayaScripts"
+   os.environ["AND_MAYA_REPO_ROOT"] = repo
+   sys.path.insert(0, repo + r"\scripts")
 
-If you'd like to contribute, please fork the repository and make changes as you'd like.
-**Pull requests are warmly welcome.**
+   import userSetup
+   userSetup.load()
+   ```
 
-[![](https://contrib.rocks/image?repo=AnDCGI/mayaScripts)](https://github.com/AnDCGI/mayaScripts/graphs/contributors)
+3. Maya should load the `AnDCGI` shelf from `prefs/shelf/shelf_AnDCGI.mel`.
 
-### Licensing
+For automatic loading on every Maya start, create or edit this file:
 
-Except where otherwise noted, all contents are licensed under a [**Creative Commons Attribution-ShareAlike 4.0 International License**](http://creativecommons.org/licenses/by-sa/4.0/).
+```text
+~/Documents/maya/2027/scripts/userSetup.py
+```
 
-## Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+and put this bootstrap in it:
 
-[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+```python
+import os
+import sys
 
-This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+repo = r"C:\Users\<USER>\Documents\GitHub\AnD_mayaScripts"
+os.environ["AND_MAYA_REPO_ROOT"] = repo
+sys.path.insert(0, repo + r"\scripts")
 
-### You are free to:
+import userSetup
+userSetup.load()
+```
 
-**Share** — copy and redistribute the material in any medium or format
-**Adapt** — remix, transform, and build upon the material for any purpose, even commercially.
+The startup loader adds the nested `scripts/py-scripts` folders to `sys.path`
+and adds the repository `icons` folder to Maya's icon lookup path.
+Replace `<USER>` with your Windows account name in the examples above.
 
-### Under the following terms:
+## Optional Configuration
 
-**Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-**ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
-**No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+Some legacy production scripts used hardcoded studio paths. They now read
+optional settings from:
 
-### Notices:
+```text
+~/Documents/AnD_mayaScripts/config.json
+```
 
-You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
-No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
+Use `config.sample.json` as a starting point. Environment variables with the
+`AND_MAYA_` prefix also work, for example `AND_MAYA_SAVE_SCENE_ROOT`.
 
-### Donating
+## Tool Index
 
-I am making these scripts to accelerate my workflow and hopefully other people will find this useful as-well.
+| Tool | File | Purpose |
+| --- | --- | --- |
+| Arnold Delete AOV | `scripts/py-scripts/ai_MtoA/aiDeleteAOV.py` | Imports references and removes Arnold AOV nodes. |
+| Arnold Disable AOV | `scripts/py-scripts/ai_MtoA/aiDisableAOV.py` | Disables all Arnold AOV nodes in the scene. |
+| Arnold Matte | `scripts/py-scripts/ai_MtoA/aiMatte.py` | Enables `aiMatte` on supported shape nodes. |
+| Channel Copy/Paste | `scripts/py-scripts/channelCopyPaste/hfCopyPaste.py` | Copies highlighted channel box values and pastes them onto selected objects. |
+| Clean Namespace | `scripts/py-scripts/cleanNameSpace/cleanNameSpace.py` | Merges non-default namespaces back to root. |
+| Clean Unknown Plugins | `scripts/py-scripts/cleanUnknwonPlugins/cleanUnknwonPlugins.py` | Removes unknown nodes, unknown plugins, and `_UNKNOWN_REF_NODE_`. |
+| Dynamics Quick Selection Set | `scripts/py-scripts/dynamicsQuickSelectionSet/dynamicsQuickSelectionSet.py` | Builds quick selection sets for FX/dynamics node types. |
+| Fancy Separator | `scripts/py-scripts/fancySeparator/fancySeparator.py` | Adds colored or custom icon separators to the active Maya shelf. |
+| Channel Box Speed | `scripts/py-scripts/helperTools/channelBoxSpeed.py` | Adds a HUD slider for channel box drag speed. |
+| Batch Render Script | `scripts/py-scripts/mayaBatchRenderScript/batchRenderScript.py` | Appends the current scene to a daily batch render `.bat` file. |
+| Save Scene | `scripts/py-scripts/mayaSaveScene/mayaSaveScene.py` | Saves a versioned Maya ASCII scene using configurable paths. |
+| Scene Scale | `scripts/py-scripts/mayaSceneScale/mayaSceneScaleChange.py` | Parents scene assemblies under a `sceneScale` locator with a global scale attribute. |
+| Reference Checker | `scripts/py-scripts/referenceFix/referenceList.py` | Scans Maya ASCII files for references outside the expected root. |
+| Render-Time Catmull-Clark | `scripts/py-scripts/render-TimeCatmull-ClarkSubdivision/RTCatClark.py` | Temporarily smooths previewed meshes during render and restores them after. |
+| Rivet Constraint | `scripts/py-scripts/rivetConstraint/rivetConstraint.py` | Creates a rivet locator from selected mesh edges or surface points. |
+| FPS Switch | `scripts/py-scripts/switchFPS/mayaBroadcastFPS.py` | Sets Maya FPS and playback range from a small UI. |
+| Support Links | `scripts/py-scripts/helpSupport/*.py` | Opens GitHub and Gumroad support links from Maya. |
 
-I won't say no, if you think this is useful and **Insist on buying me a Beer**</span>
-<a href="https://www.paypal.me/DJDhrub"><img src="https://ionicabizau.github.io/badges/paypal.svg">
+## Render-Time Catmull-Clark Usage
+
+Add these snippets in Render Settings > Common > Render Options:
+
+```mel
+Pre Render MEL = python("import RTCatClark;RTCatClark.preCatClark()")
+Post Render MEL = python("import RTCatClark;RTCatClark.pstCatClark()")
+```
+
+## Known Limitations
+
+- These are shelf scripts, not a packaged Maya module.
+- Some tools operate directly on the open scene and are intentionally
+  destructive, such as namespace cleanup and unknown plugin cleanup.
+- The shelf preserves legacy module names and folder names, including historical
+  typos, to avoid breaking launch commands.
+- Compatibility has been checked statically outside Maya, but final behavior
+  should be tested inside Maya before publishing the archive release.
+
+## License
+
+Except where otherwise noted, this project is licensed under the Creative
+Commons Attribution-ShareAlike 4.0 International License. See `LICENSE.md`.

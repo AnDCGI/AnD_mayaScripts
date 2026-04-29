@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# © 2020 AnD CGI This work is licensed under a Creative Commons
+# Â© 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 """
 Dynamics Quick Selection Set. This tool collects different types of objects* by searching the whole scene user have to 
@@ -12,11 +12,11 @@ have a QSS suffix.
 
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 
-version = 1.0
-winID = 'QSSCreate'  # Declaring Window ID
+VERSION = 1.0
+WINDOW_ID = 'QSSCreate'  # Declaring Window ID
 
-if cmds.window(winID, exists=True):  # Check To See If Window Exists
-    cmds.deleteUI(winID)
+if cmds.window(WINDOW_ID, exists=True):  # Check To See If Window Exists
+    cmds.deleteUI(WINDOW_ID)
 
 # Defines Create Button Action
 
@@ -112,7 +112,7 @@ def DoneButtonPush(*args):
 
 
 # Creates Actual Window GUI
-window = cmds.window(winID, title='FX Quick Selection Set', resizeToFitChildren=True, sizeable=False, tlb=True)
+window = cmds.window(WINDOW_ID, title='FX Quick Selection Set', resizeToFitChildren=True, sizeable=False, tlb=True)
 
 # Creates Layout
 cmds.frameLayout(label='Dynamics Quick Selection Set Options', collapsable=False, mw=5, mh=5)
@@ -141,3 +141,4 @@ cmds.button(label='Done', command=DoneButtonPush)
 
 # Shows Window
 cmds.showWindow()
+

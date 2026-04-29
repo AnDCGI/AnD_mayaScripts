@@ -1,0 +1,7 @@
+{
+  "batch_render_output_dir": "C:/Users/YourName/Documents/AnD_mayaScripts/batch_render",
+  "batch_render_frames_dir": "",
+  "render_executable": "Render",
+  "save_scene_root": "C:/Users/YourName/Documents/maya/projects/default/scenes",
+  "save_scene_prefix": ""
+}

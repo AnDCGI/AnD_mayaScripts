@@ -1,13 +1,10 @@
+"""Add a temporary HUD slider for Maya channel box drag speed."""
+
 import maya.cmds as cmds
-from math import log10
 
 
 def SliderSpeed(hud, *args):
-    """
-    This function modifies the speed of the mainChannelBox based on the value of the hudSliderButton.
-    :param hud: hudSliderButton name
-    :param args: 'delete' option
-    """
+    """Update the channel box speed and optionally remove the HUD."""
     try:
         sliderValue = cmds.hudSliderButton(hud, query=True, v=True)
         newSpeed = pow(10, sliderValue)
@@ -17,14 +14,13 @@ def SliderSpeed(hud, *args):
         else:
             newSpeed = int(newSpeed)
         cmds.hudSliderButton(hud, e=True, sl=newSpeed)
-    except:
+    except RuntimeError:
         print("channelBox not existed.")
-    if len(args) > 0:
-        if args[0] == 'delete':
-            cmds.headsUpDisplay(hud, rem=True)
+    if args and args[0] == 'delete':
+        cmds.headsUpDisplay(hud, rem=True)
 
 
-sliderSpeedValue = cmds.channelBox("mainChannelBox", query=True, spd=1)
+# Create the HUD immediately because this tool is meant to be shelf-launched.
 hud = cmds.hudSliderButton('HUDchboxspeed',
                            section=2,
                            block=5,

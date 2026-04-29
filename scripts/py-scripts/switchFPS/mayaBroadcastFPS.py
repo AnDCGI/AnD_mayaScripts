@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# © 2020 AnD CGI This work is licensed under a Creative Commons
+# Â© 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 """
 Maya Broadcast FPS. This script is designed to work as a shelf button inside maya which will open a pop-up window with 
@@ -14,16 +14,16 @@ Disclaimer! This doesn't change any keyframe nor convert FPS, it just sets FPS, 
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 import maya.mel as mel  # Importing The Mel Python Wrapper Module
 
-version = 1.0
-winID = 'SetDesiredFPS'  # Declaring Window ID
+VERSION = 1.0
+WINDOW_ID = 'SetDesiredFPS'  # Declaring Window ID
 
 cAnimationStartTime = cmds.playbackOptions(q=True, ast=True)  # Gets The Start
 cAnimationEndTime = cmds.playbackOptions(q=True, aet=True)  # Gets The End
 cMinTime = cAnimationStartTime  # Sets The Start Of The Playback Time Range
 cMaxTime = cAnimationEndTime  # Sets The End Of The Playback Time Range
 
-if cmds.window(winID, exists=True):  # Check To See If Window Exists
-    cmds.deleteUI(winID)
+if cmds.window(WINDOW_ID, exists=True):  # Check To See If Window Exists
+    cmds.deleteUI(WINDOW_ID)
 
 
 def SetButtonPush(*args):
@@ -71,7 +71,7 @@ def setFPS(cMinTime, cMaxTime, unit, fps):
 
 
 # Creates Actual Window
-window = cmds.window(winID, title='Maya FPS Switch', resizeToFitChildren=True, sizeable=False, tlb=True)
+window = cmds.window(WINDOW_ID, title='Maya FPS Switch', resizeToFitChildren=True, sizeable=False, tlb=True)
 
 # Creates Layout
 cmds.frameLayout(label='Broadcast FPS Options', collapsable=False, mw=5, mh=5)
@@ -108,3 +108,4 @@ cmds.setParent('..')
 
 # Shows Window
 cmds.showWindow()
+

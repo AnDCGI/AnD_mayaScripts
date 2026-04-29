@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # © 2022 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
@@ -59,14 +59,14 @@ def SearchReturnLines(listPath, searchString):
 
 def RunButtonPush(*args):
     currentValue = cmds.radioButtonGrp('Radio_Type', query=True, select=True)
-    filesDir = cmds.textFieldGrp('Path_Text', query=True, fileName=True)
-    refrDir = cmds.textFieldGrp('Ref_Text', query=True, fileName=True)
+    filesDir = cmds.textFieldGrp('Path_Text', query=True, text=True)
+    refrDir = cmds.textFieldGrp('Ref_Text', query=True, text=True)
 
     if filesDir != '' and refrDir != '':
-        # Create a List From Given Directory
+        # Build a list of Maya ASCII scenes to scan.
         fp = FindMayaFiles(filesDir)
 
-        # For Text Generation
+        # Option 1 opens each file in Maya. It is slower but understands references exactly as Maya does.
         if currentValue == 1:
             promptValue = cmds.file(q=True, prompt=True)  # Warning Or PopUp Message Option
             cmds.file(prompt=False)  # Warning Or PopUp Message Off
@@ -78,7 +78,7 @@ def RunButtonPush(*args):
                 cmds.file(new=True, force=True)
                 cmds.file(fi, open=True, force=True, loadReferenceDepth='none', buildLoadSettings=False)
 
-                # Getting All Reference Node Names
+                # Collect reference node names that represent actual file references.
                 for node in cmds.ls(type='reference'):
                     if 'sharedReferenceNode' in node:
                         continue
@@ -87,7 +87,7 @@ def RunButtonPush(*args):
                     else:
                         refNodes.append(node)
 
-                # Getting All Reference File Paths
+                # Write any mismatched reference paths into the FAIL report.
                 for ref in refNodes:
                     if refrDir in cmds.referenceQuery(ref, filename=True):
                         noRefList = open(fi[:-3] + ' - PASS.txt', 'w')
@@ -118,9 +118,9 @@ def RunButtonPush(*args):
             print('Not Ready!')
 
         elif currentValue == 3:
-            matchedList = []
-
+            # Option 3 scans the Maya ASCII file as text. It is faster and does not load the scene.
             for fi in fp:
+                matchedList = []
 
                 refList = open(fi[:-3] + ' - FAIL.txt', 'w')
                 searchOutput = SearchReturnLines(fi, 'file ')
@@ -191,7 +191,7 @@ cmds.setParent('..')
 cmds.rowLayout(numberOfColumns=4)
 cmds.text(label='', width=25)
 cmds.radioButtonGrp('Radio_Type',
-                    labelArray3=['Maya (Slow)', 'Find/Replace', 'Pyhton (Fast)'],
+                    labelArray3=['Maya (Slow)', 'Find/Replace', 'Python (Fast)'],
                     numberOfRadioButtons=3,
                     enable=True,
                     select=1)

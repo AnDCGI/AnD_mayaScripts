@@ -1,4 +1,4 @@
-import maya.cmds as cmds
+﻿import maya.cmds as cmds
 import maya.mel as mel
 import re
 
@@ -8,7 +8,7 @@ def rivet():
     nameObject = ""
     namePOSI = ""
     parts = []
-    edgeList = cmds.filterExpand(sm = 32)
+    edgeList = cmds.filterExpand(sm=32)
     
     if edgeList != None:
         size = len(edgeList)
@@ -19,10 +19,10 @@ def rivet():
                 			
         parts = edgeList[0].split(".")
         nameObject = parts[0]
-        edgeOne = re.findall("\d+", parts[1])
+        edgeOne = re.findall(r"\d+", parts[1])
         edgeOne = float(edgeOne[0])
         parts = edgeList[1].split(".")
-        edgeTwo = re.findall("\d+", parts[1])
+        edgeTwo = re.findall(r"\d+", parts[1])
         edgeTwo = float(edgeTwo[0])
         nameCFMEOne = str(cmds.createNode('curveFromMeshEdge', n="rivetCurveFromMeshEdge1"))
         cmds.setAttr(".ihi", 1)
@@ -46,6 +46,9 @@ def rivet():
         		
     else:
         edgeList = cmds.filterExpand(sm=41)
+        if edgeList is None:
+            cmds.error("No Edges or Point Selected")
+            return ""
         size = len(edgeList)
         if size > 0:
             if size != 1:
@@ -54,9 +57,12 @@ def rivet():
 				
             parts = edgeList[0].split(".")
             nameObject = parts[0]
-            parts = edgeListmx[0].split("[]")
-            u = float(parts[1])
-            v = float(parts[2])
+            uv_values = re.findall(r"\[(.*?)\]", edgeList[0])
+            if len(uv_values) != 2:
+                cmds.error("Could not read selected surface point UV values")
+                return ""
+            u = float(uv_values[0])
+            v = float(uv_values[1])
             namePOSI = str(cmds.createNode('pointOnSurfaceInfo', n="rivetPointOnSurfaceInfo1"))
             cmds.setAttr(".turnOnPercentage", 0)
             cmds.setAttr(".parameterU", u)
@@ -96,8 +102,7 @@ def rivet():
     cmds.connectAttr((nameAC + ".cry"), (nameLocator + ".ry"))
     cmds.connectAttr((nameAC + ".crz"), (nameLocator + ".rz"))
     cmds.select(nameLocator, r = 1)
-    return (nameLocator)
     mel.eval('AEdagNodeCommonRefreshOutliners()')
-    mel.eval('AttributeEditor;updateAE()')
-	
-rivet()
+    mel.eval('AttributeEditor;updateAE("{}")'.format(nameLocator))
+    return nameLocator
+

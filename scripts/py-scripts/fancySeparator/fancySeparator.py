@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# © 2019 AnD CGI This work is licensed under a Creative Commons
+# Â© 2019 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 """
 Fancy Separator. This script is intended to function as a shelf button within Maya, opening a pop-up window with all of 
@@ -13,12 +13,12 @@ Original MEL script by Giuseppe Russo, thanks sharing it with the community. Mod
 import maya.cmds as cmds  # Importing The Main Maya Python Module
 import maya.mel as mel  # Importing The Mel Python Wrapper Module
 
-version = 1.0
-windowNameSeparator = 'separatorUI'  # Declaring Window ID
+VERSION = 1.0
+WINDOW_ID = 'separatorUI'  # Declaring Window ID
 
-if cmds.window(windowNameSeparator, ex=1):
-    cmds.deleteUI(windowNameSeparator)
-    cmds.windowPref(windowNameSeparator, remove=1)
+if cmds.window(WINDOW_ID, ex=1):
+    cmds.deleteUI(WINDOW_ID)
+    cmds.windowPref(WINDOW_ID, remove=1)
 
 
 def addSeparator(color, custom):
@@ -28,7 +28,7 @@ def addSeparator(color, custom):
     # For Custom Icon
     icon = ''
     if custom == 0:
-        icon = 'separatoricons/' + color + '.png'
+        icon = 'separatorIcons/' + color + '.png'
     elif color == '':
         cmds.error('Please select an icon')
     else:
@@ -48,62 +48,67 @@ def addSeparator(color, custom):
     print('\nSeparator Added!')
 
 
-cmds.window(windowNameSeparator,
+def addCustomSeparator(*args):
+    selection = cmds.fileDialog2(fileFilter='PNG files (*.png)', fileMode=1)
+    if selection:
+        addSeparator(selection[0], 1)
+
+
+cmds.window(WINDOW_ID,
             maximizeButton=False,
             sizeable=False,
             resizeToFitChildren=True,
-            title='Create Separator',
+            title='Create Separator | v{}'.format(VERSION),
             tlb=True)
 
 # For Custom Image
 cmds.rowColumnLayout()
-cmds.button(c=lambda *args: cmds.evalDeferred(lambda: addSeparator(
-    cmds.fileDialog2(fileFilter='*.png')[0] if cmds.fileDialog2(ff='PNG files (*.png)', fm=1) else None, 1)),
-            l='Custom Icon')
+cmds.button(command=addCustomSeparator, label='Custom Icon')
 cmds.setParent('..')
 # Grid Layout
 cmds.gridLayout(numberOfColumns=5, ag=True, cellWidthHeight=(65, 60))
 # Line 1 Images
 cmds.iconTextButton(c=lambda *args: addSeparator('turquoise', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/turquoise.png',
+                    image='separatorIcons/turquoise.png',
                     label='Turquoise')
 cmds.iconTextButton(c=lambda *args: addSeparator('emerald', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/emerald.png',
+                    image='separatorIcons/emerald.png',
                     label='Emerald')
 cmds.iconTextButton(c=lambda *args: addSeparator('peterriver', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/peterriver.png',
+                    image='separatorIcons/peterriver.png',
                     label='Peter River')
 cmds.iconTextButton(c=lambda *args: addSeparator('amethyst', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/amethyst.png',
+                    image='separatorIcons/amethyst.png',
                     label='Amethyst')
 cmds.iconTextButton(c=lambda *args: addSeparator('wetasphalt', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/wetasphalt.png',
+                    image='separatorIcons/wetasphalt.png',
                     label='Wet Asphalt')
 # Line 2 Images
 cmds.iconTextButton(c=lambda *args: addSeparator('sunflower', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/sunflower.png',
+                    image='separatorIcons/sunflower.png',
                     label='Sunflower')
 cmds.iconTextButton(c=lambda *args: addSeparator('carrot', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/carrot.png',
+                    image='separatorIcons/carrot.png',
                     label='Carrot')
 cmds.iconTextButton(c=lambda *args: addSeparator('alizarin', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/alizarin.png',
+                    image='separatorIcons/alizarin.png',
                     label='Alizarin')
 cmds.iconTextButton(c=lambda *args: addSeparator('clouds', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/clouds.png',
+                    image='separatorIcons/clouds.png',
                     label='Clouds')
 cmds.iconTextButton(c=lambda *args: addSeparator('concrete', 0),
                     style='iconAndTextVertical',
-                    image='separatoricons/concrete.png',
+                    image='separatorIcons/concrete.png',
                     label='Concrete')
 cmds.setParent('..')
 cmds.showWindow()
+

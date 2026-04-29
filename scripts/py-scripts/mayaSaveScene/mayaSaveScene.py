@@ -1,66 +1,70 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# © 2020 AnD CGI This work is licensed under a Creative Commons
-# Attribution-ShareAlike 4.0 International License.
-'''Maya Save Scene
-This Is Especially Ment To Work With Cache Pipeline, Where The User
-Builds The Cache, Camera Name Contains Scene Name & The Direcoty Of File Is
-Always Set And Definened By Specific Strucure
-Here This Script Will Automatically Get The Save Location Based On The
-Name Of The Camera And Create A Folder And Save The File Inside If The File
-Already Exsist It Will Do A Version Up And Save
-'''
-# Importing Modules
-import maya.cmds as cmds    # Importing The Main Maya Python Module
-import os   # Getting The OS Module For Path Manipulation
+"""Save the current scene with simple automatic versioning.
 
-# Declaring Varibale
-vNum = str(1)
-globalPath = "A:\\01prj\\XYZ\\prod\\shotpub"    # Path To Global Directory
+Optional configuration keys in ``~/Documents/AnD_mayaScripts/config.json``:
 
-# Finding Cameras
-cameras = cmds.listCameras(p=True)
-exclude = ["persp"]
-# Getting Nothing But The User Camera
-cameras = list(set(cameras) - set(exclude))
+``save_scene_root``
+    Root directory where versioned scenes are saved. Defaults to the current
+    workspace's ``scenes`` directory.
+``save_scene_prefix``
+    Prefix used for new scene names. Defaults to the current scene/camera name.
+"""
 
-# Fixing Camera Name As Per Need
-camName = cameras[0]
-# String Deletation Needs To Be Set As Per User Directory Char Count
-camName = camName[3:21]
-camPath = camName.replace("_", "\\")
+from __future__ import annotations
 
-# Having Save Directory
-saveDir = globalPath + camPath
+import re
+from pathlib import Path
 
-# Giving Folder Name Where The File Will Be Saved
-directory = "fx_scene"
-path = os.path.join(saveDir, directory)
+import maya.cmds as cmds
 
-# Skipping If Folder Exists
-if not os.path.exists(path):
-    os.makedirs(path)
+from AnD_mayaCommon import config_value, ensure_directory
 
-# Creating The Total Path
-saveDir = globalPath + camPath + "\\" + "fx_scene\\"
-fileName = saveDir.replace("\\", "_")
-# String Deletation Needs To Be Set As Per User Directory Char Count
-fileName = "aaj" + fileName[-28:] + "source" + "_v" + vNum.zfill(3) + ".ma"
-# The Final File Path For New File
-mergeSDFN = saveDir + fileName
 
-# Version Up If File Already There
-if os.path.isfile(mergeSDFN):
-    getFileName = cmds.file(q=True, sn=True).split('/')[-1]
-    # String Deletation Needs To Be Set As Per User Directory Char Count
-    getVName = int(getFileName[-6:-3])
-    newVNum = getVName + 1
-    newVNum = str(newVNum)
-    newFName = getFileName[:-6] + newVNum.zfill(3) + ".ma"
-    newMergeSDFN = saveDir + newFName
-    cmds.file(rename=newMergeSDFN)
+VERSION_PATTERN = re.compile(r"_v(\d{3})\.ma$", re.IGNORECASE)
+
+
+def _safe_name(value: str) -> str:
+    value = re.sub(r"[^A-Za-z0-9_]+", "_", value.strip())
+    return value.strip("_") or "maya_scene"
+
+
+def _default_name() -> str:
+    scene_name = cmds.file(query=True, sceneName=True)
+    if scene_name:
+        return _safe_name(Path(scene_name).stem)
+
+    cameras = [cam for cam in (cmds.listCameras(perspective=True) or []) if cam != "persp"]
+    if cameras:
+        return _safe_name(cameras[0])
+
+    return "maya_scene"
+
+
+def _next_version_path(directory: Path, prefix: str) -> Path:
+    versions = []
+    for path in directory.glob("{}_v*.ma".format(prefix)):
+        match = VERSION_PATTERN.search(path.name)
+        if match:
+            versions.append(int(match.group(1)))
+    version = max(versions, default=0) + 1
+    return directory / "{}_v{:03d}.ma".format(prefix, version)
+
+
+def save_versioned_scene():
+    workspace_root = cmds.workspace(query=True, rootDirectory=True)
+    default_root = Path(workspace_root) / "scenes" if workspace_root else Path.home() / "maya" / "scenes"
+    save_root = ensure_directory(config_value("save_scene_root", str(default_root)))
+    prefix = _safe_name(config_value("save_scene_prefix", _default_name()))
+    target_path = _next_version_path(save_root, prefix)
+
+    cmds.file(rename=str(target_path))
     cmds.file(save=True, type="mayaAscii")
-# Save For New Scene
-else:
-    cmds.file(rename=mergeSDFN)
-    cmds.file(save=True, type="mayaAscii")
+    cmds.inViewMessage(
+        amg="Saved scene as <hl>{}</hl>".format(target_path.name),
+        pos="midCenter",
+        fade=True,
+    )
+
+
+save_versioned_scene()

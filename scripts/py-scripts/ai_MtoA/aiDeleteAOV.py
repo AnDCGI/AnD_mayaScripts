@@ -3,17 +3,23 @@
 # © 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 
-import maya.cmds as cmds    # Importing The Main Maya Python Module
+"""Delete Arnold AOV nodes after importing scene references."""
 
-# Importing All Reference, Without AOVs Can't Be Deleted
-refs = cmds.ls(type="reference")
-for i in refs:
-    # These Two Lines Imports All References
-    rFile = cmds.referenceQuery(i, f=True)
-    cmds.file(rFile, importReference=True)
-    # Getiing All AOVs In The Scene
-    aovList = cmds.ls(type="aiAOV")
-    # This Loops Deletes All AOVs
-    for node in aovList:
-        print(node+" has been removed")
-        cmds.delete(node)
+import maya.cmds as cmds
+
+# Import references first because some AOV nodes can live inside them.
+refs = cmds.ls(type="reference") or []
+for ref in refs:
+    if ref in ("sharedReferenceNode", "_UNKNOWN_REF_NODE_"):
+        continue
+    try:
+        rFile = cmds.referenceQuery(ref, filename=True)
+        cmds.file(rFile, importReference=True)
+    except RuntimeError as error:
+        cmds.warning("Could not import reference {}: {}".format(ref, error))
+
+# Delete every Arnold AOV node that remains in the current scene.
+aovList = cmds.ls(type="aiAOV") or []
+for node in aovList:
+    print(node + " has been removed")
+    cmds.delete(node)

@@ -1,31 +1,36 @@
 # Licensed under the MIT license
 
-import os
+"""Bootstrap the AnD CGI shelf when Maya starts."""
+
+from __future__ import annotations
+
 import maya.cmds as cmds
 import maya.mel as mel
 
+from AnD_mayaCommon import REPO_ROOT, SHELF_FILE, add_icon_path, add_py_script_paths
+
 
 def load():
-    homeDir = os.path.expanduser('~')
-    homeDir += "/Documents/GitHub/"
+    """Load the AnDCGI shelf after Maya has finished initializing."""
+    if cmds.about(batch=True):
+        return
 
-    # Shelf to load from
-    shelfLocation = (
-        homeDir + "AnD_mayaScripts/prefs/shelf/shelf_AnDCGI.mel"
-    )
-    if os.path.isdir(shelfLocation) and not cmds.about(batch=True):
-        for s in os.listdir(shelfLocation):
-            path = os.path.join(shelfLocation, s).replace("\\", "/")
-            if not os.path.isfile(path):
-                continue
-            name = os.path.splitext(s)[0].replace("shelf_", "")
-            # Delete existing shelf before loading
-            if cmds.shelfLayout(name, ex=1):
-                cmds.deleteUI(name)
-            mel.eval('loadNewShelf("{}")'.format(path))
+    add_py_script_paths()
+    add_icon_path()
+
+    if not SHELF_FILE.is_file():
+        cmds.warning(
+            "AnD Maya shelf was not found: {}. Set AND_MAYA_REPO_ROOT to the "
+            "AnD_mayaScripts checkout if Maya cannot auto-detect it.".format(SHELF_FILE)
+        )
+        return
+
+    shelf_name = SHELF_FILE.stem.replace("shelf_", "")
+    if cmds.shelfLayout(shelf_name, exists=True):
+        cmds.deleteUI(shelf_name)
+
+    mel.eval('loadNewShelf("{}")'.format(str(SHELF_FILE).replace("\\", "/")))
+    print("Loaded AnDCGI shelf from {}".format(REPO_ROOT))
 
 
-# NOTE: Actual setup must be evaluated deferred to avoid
-
-# IOError: [Errno 9]
 cmds.evalDeferred(load)

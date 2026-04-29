@@ -417,7 +417,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport rivetConstraint\nimp.reload(rivetConstraint)" 
+        -command "import importlib\nimport rivetConstraint\nrivetConstraint = importlib.reload(rivetConstraint)\nrivetConstraint.rivet()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -451,7 +451,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport mayaBroadcastFPS\nimp.reload(mayaBroadcastFPS)" 
+        -command "import importlib\nimport mayaBroadcastFPS\nimportlib.reload(mayaBroadcastFPS)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -485,7 +485,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport dynamicsQuickSelectionSet\nimp.reload(dynamicsQuickSelectionSet)" 
+        -command "import importlib\nimport dynamicsQuickSelectionSet\nimportlib.reload(dynamicsQuickSelectionSet)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -519,7 +519,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport cleanUnknwonPlugins\nimp.reload(cleanUnknwonPlugins)" 
+        -command "import importlib\nimport cleanUnknwonPlugins\nimportlib.reload(cleanUnknwonPlugins)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -553,7 +553,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport batchRenderScript\nimp.reload(batchRenderScript)" 
+        -command "import importlib\nimport batchRenderScript\nbatchRenderScript = importlib.reload(batchRenderScript)\nbatchRenderScript.add_current_scene_to_batch()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -587,7 +587,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport mayaSceneScaleChange\nimp.reload(mayaSceneScaleChange)" 
+        -command "import importlib\nimport mayaSceneScaleChange\nmayaSceneScaleChange = importlib.reload(mayaSceneScaleChange)\nmayaSceneScaleChange.scale_scene()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -621,7 +621,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport referenceList\nimp.reload(referenceList)" 
+        -command "import importlib\nimport referenceList\nimportlib.reload(referenceList)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -749,7 +749,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport fancySeparator\nimp.reload(fancySeparator)" 
+        -command "import importlib\nimport fancySeparator\nimportlib.reload(fancySeparator)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -783,7 +783,7 @@ global proc shelf_AnDCGI () {
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport gitHubConnect\nimp.reload(gitHubConnect)" 
+        -command "import importlib\nimport gitHubConnect\ngitHubConnect = importlib.reload(gitHubConnect)\ngitHubConnect.showHelp()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -798,12 +798,12 @@ global proc shelf_AnDCGI () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Support Me, Donate On Ko-fi" 
+        -annotation "Support Me On Gumroad" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Ko-Fi" 
+        -label "Gumroad" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -812,12 +812,12 @@ global proc shelf_AnDCGI () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "kofi_button_stroke.png" 
-        -image1 "kofi_button_stroke.png" 
+        -image "gumroad-button.png" 
+        -image1 "gumroad-button.png" 
         -style "iconOnly" 
         -marginWidth 0
         -marginHeight 1
-        -command "import imp\nimport kofiConnect\nimp.reload(kofiConnect)" 
+        -command "import importlib\nimport gumroadConnect\ngumroadConnect = importlib.reload(gumroadConnect)\ngumroadConnect.showHelp()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

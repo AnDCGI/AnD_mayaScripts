@@ -1,69 +1,72 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# © 2020 AnD CGI This work is licensed under a Creative Commons
+# Â© 2020 AnD CGI This work is licensed under a Creative Commons
 # Attribution-ShareAlike 4.0 International License.
 """
-Maya one click Scene Scale Change. This script is designed to change scene scale like for FX, Lighting etc. Designed to 
-work as a shelf button inside Maya and especially made to work with Alembic files. By default it will scale everything 
-down to 0.1 in all axis, User can later change the scale at any point. This is a headless script so watch out for in 
-view message.
+Maya one click Scene Scale Change. This script is designed to change scene scale
+like for FX, Lighting etc. Designed to work as a shelf button inside Maya and
+especially made to work with Alembic files.
 
 Disclaimer! Be carefull while using it with Rigged Files.
 """
 
-import maya.cmds as cmds  # Importing The Main Maya Python Module
-import maya.mel as mel  # Importing The Mel Python Wrapper Module
+import maya.cmds as cmds
+import maya.mel as mel
 
-# Selecting Every Alembic Inside Scene Then Getting Transform Node
-cmds.select(all=True, hierarchy=True)
-selection = cmds.ls(type='AlembicNode')
-transformNode = cmds.listRelatives(selection, p=True)
 
-if transformNode:  # Check TransformNode If Any
-    for obj in transformNode:  # Setting Inherit Transform On For Alembic Files
-        cmds.setAttr(obj + ".inheritsTransform", 1)
-cmds.select(clear=True)
+def scale_scene():
+    """Wrap the scene in a single global scale locator."""
+    # Turn inheritTransform back on for Alembic parents before scaling the scene.
+    cmds.select(all=True, hierarchy=True)
+    selection = cmds.ls(type='AlembicNode')
+    transformNode = cmds.listRelatives(selection, parent=True) if selection else []
 
-cmds.select(all=True, noExpand=True)  # Selecting Everything Inside Scene Again
-selection = cmds.ls(selection=True, assemblies=True)
+    if transformNode:
+        for obj in transformNode:
+            cmds.setAttr(obj + ".inheritsTransform", 1)
+    cmds.select(clear=True)
 
-# Creating Locator, Renaming & Making It Parent Of Everything Inside Scene
-locator = cmds.spaceLocator()
-cmds.parent(selection, locator)
-cmds.select(locator)
-cmds.rename(locator, 'sceneScale')
-cmds.addAttr(shortName='gs', longName='globalScale', defaultValue=0.1, minValue=0.01, maxValue=100, keyable=True)
+    # Collect top-level assemblies so the scale control only wraps the scene once.
+    cmds.select(all=True, noExpand=True)
+    selection = cmds.ls(selection=True, assemblies=True)
+    if not selection:
+        cmds.select(clear=True)
+        cmds.error("No scene assemblies found to scale.")
+        return
 
-# Connecting To Global Scale
-cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleX')
-cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleY')
-cmds.connectAttr('sceneScale.gs', 'sceneScale.scaleZ')
+    # Create a single locator that drives a global scale attribute.
+    locator = cmds.spaceLocator(name='sceneScale')[0]
+    cmds.parent(selection, locator)
+    cmds.select(locator)
+    cmds.addAttr(shortName='gs', longName='globalScale', defaultValue=0.1, minValue=0.01, maxValue=100, keyable=True)
 
-# Some Beautification Of The Locator So It Stands Out
-cmds.setAttr("sceneScale.useOutlinerColor", 1)
-cmds.setAttr("sceneScale" + ".outlinerColor", 0, 1, 0)
-cmds.setAttr("sceneScale.overrideEnabled", 1)
-cmds.setAttr("sceneScale" + ".overrideColor", 13)
+    # Wire the custom attribute into the locator's scale channels.
+    cmds.connectAttr(locator + '.gs', locator + '.scaleX')
+    cmds.connectAttr(locator + '.gs', locator + '.scaleY')
+    cmds.connectAttr(locator + '.gs', locator + '.scaleZ')
 
-# Lock & Hide Transform Attributes
-selected = cmds.ls(selection=True)
-for eachTrn in selected:
-    for tranAttrs in cmds.listAttr(k=True):
-        if tranAttrs == 'visibility' or tranAttrs == 'globalScale':
-            pass
-        else:
-            cmds.setAttr(eachTrn + '.' + tranAttrs, keyable=False, cb=False, lock=True)
+    # Give the locator a consistent outliner and viewport color.
+    cmds.setAttr(locator + ".useOutlinerColor", 1)
+    cmds.setAttr(locator + ".outlinerColor", 0, 1, 0)
+    cmds.setAttr(locator + ".overrideEnabled", 1)
+    cmds.setAttr(locator + ".overrideColor", 13)
 
-# Lock & Hide Shape Attributes
-for eachShp in selected:
-    for shp in cmds.listRelatives(selected, s=True):
-        for shpAtrs in cmds.listAttr(shp, st='local*'):
-            cmds.setAttr(shp + '.' + shpAtrs, keyable=False, cb=False, lock=True)
+    # Hide every transform channel except visibility and globalScale.
+    selected = cmds.ls(selection=True)
+    for eachTrn in selected:
+        for tranAttrs in cmds.listAttr(eachTrn, keyable=True) or []:
+            if tranAttrs not in ('visibility', 'globalScale'):
+                cmds.setAttr(eachTrn + '.' + tranAttrs, keyable=False, cb=False, lock=True)
 
-# Refreshing Outliner & Attribute Editor So That It Can Reflects The Change
-mel.eval('AEdagNodeCommonRefreshOutliners()')
-mel.eval('AttributeEditor;updateAE("sceneScale")')
-cmds.select(clear=True)  # Clear Selection
+    # Hide local shape attributes so the control reads as a single-purpose tool.
+    for eachShp in selected:
+        for shp in cmds.listRelatives(eachShp, shapes=True) or []:
+            for shpAtrs in cmds.listAttr(shp, string='local*') or []:
+                cmds.setAttr(shp + '.' + shpAtrs, keyable=False, cb=False, lock=True)
 
-# Message
-cmds.inViewMessage(amg='New Scene Scale <hl>0.1</hl>', pos='midCenter', font="Cascadia Mono SemiBold", fade=True)
+    # Refresh Maya UI panels so the new locator state is visible immediately.
+    mel.eval('AEdagNodeCommonRefreshOutliners()')
+    mel.eval('AttributeEditor;updateAE("{}")'.format(locator))
+    cmds.select(clear=True)
+
+    cmds.inViewMessage(amg='New Scene Scale <hl>0.1</hl>', pos='midCenter', font="Cascadia Mono SemiBold", fade=True)

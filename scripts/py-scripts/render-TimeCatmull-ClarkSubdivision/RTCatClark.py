@@ -39,8 +39,9 @@ def pstCatClark():
     if smoothShapes:
         for prim in smoothShapes:
             if prim[:10] == 'pRCatClark':
-                shapes = cmds.listConnections(prim + '.output')
+                shapes = cmds.listConnections(prim + '.output') or []
                 cmds.polySmooth(prim, e=True, dv=0)
                 cmds.delete(prim)
-                cmds.displaySmoothness(shapes, polygonObject=3)
+                if shapes:
+                    cmds.displaySmoothness(shapes, polygonObject=3)
                 cmds.select(clear=True)
